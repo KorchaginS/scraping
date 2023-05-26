@@ -15,14 +15,17 @@ headers = {
 }
 
 
-def collectData():
+def collectData(cat_type=2):
     offset = 0
     data = []
     counter = 0
     while True:
         counter += 1
+        if counter > 10:
+            break
+
         print(f"Обрабатывается страница {counter}")
-        r = requests.get(f'https://cs.money/1.0/market/sell-orders?limit=60&offset={offset}&order=desc&sort=discount&type=2')
+        r = requests.get(f'https://cs.money/1.0/market/sell-orders?limit=60&offset={offset}&order=desc&sort=discount&type={cat_type}')
         if r.text.find('{"errors":[{"code":2}]}') != -1:
             break
 
